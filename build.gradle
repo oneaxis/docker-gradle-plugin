@@ -1,0 +1,49 @@
+import de.oneaxis.gradle.docker.dockerfile.DefaultDockerfile
+import de.oneaxis.gradle.docker.dockerfile.MultistageDockerfile
+import de.oneaxis.gradle.docker.dockerfile.command.CopyCommand
+import de.oneaxis.gradle.docker.dockerfile.command.EntrypointCommand
+import de.oneaxis.gradle.docker.dockerfile.command.ExposeCommand
+import de.oneaxis.gradle.docker.dockerfile.command.FromCommand
+import de.oneaxis.gradle.docker.dockerfile.command.RunCommand
+import de.oneaxis.gradle.docker.dockerfile.command.UserCommand
+import de.oneaxis.gradle.docker.dockerfile.command.WorkdirCommand
+
+plugins {
+    id 'java'
+    id 'de.oneaxis.docker-gradle-plugin'
+}
+
+group 'docker.gradle.oneaxis.de'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation gradleApi()
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+createDockerfile {
+    path = project.rootDir
+    dockerfile = new MultistageDockerfile(
+            new DefaultDockerfile(
+                    new FromCommand("gradle:5.3.0-jdk11-slim"),
+                    new UserCommand("root"),
+                    new WorkdirCommand("/builder"),
+                    new CopyCommand(".", "."),
+                    new RunCommand("gradle", "build")
+            ),
+            new DefaultDockerfile(
+                    new FromCommand("openjdk:11.0-jre-slim"),
+                    new WorkdirCommand("/app"),
+                    new CopyCommand("0", "/builder/build/libs/app.jar", "."),
+                    new ExposeCommand(9090, 8080),
+                    new EntrypointCommand("java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "./app.jar")
+            )
+    )
+}
+
