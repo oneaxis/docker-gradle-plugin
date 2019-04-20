@@ -3,7 +3,7 @@ plugins {
     id 'maven-publish'
 }
 
-group 'docker.gradle.oneaxis.de'
+group 'de.oneaxis.docker'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 11
@@ -15,4 +15,27 @@ repositories {
 dependencies {
     implementation gradleApi()
     testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+publishing {
+    repositories {
+        maven {
+            if(project.version.endsWith('-SNAPSHOT')) {
+                url "${nexusUrl}${relativePathSnapshots}"
+            } else {
+                url "${nexusUrl}${relativePathReleases}"
+            }
+
+            credentials {
+                username "$nexusUsername"
+                password "$nexusPassword"
+            }
+        }
+    }
+
+    publications {
+        api(MavenPublication) {
+            from components.java
+        }
+    }
 }
