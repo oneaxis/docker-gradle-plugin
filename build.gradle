@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'de.oneaxis.docker-gradle-plugin'
+    id 'maven-publish'
 }
 
 group 'docker.gradle.oneaxis.de'
@@ -9,30 +9,10 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = 11
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 dependencies {
     implementation gradleApi()
     testCompile group: 'junit', name: 'junit', version: '4.12'
-}
-
-createDockerfile {
-    filePath = file("$project.rootDir/Dockerfile")
-    dockerfile = multistageDockerfile(
-            dockerfile(
-                    fromCommand('gradle:5.3.0-jdk11-slim'),
-                    userCommand('root'),
-                    workdirCommand('/builder'),
-                    copyCommand('.', '.'),
-                    runCommand('gradle', 'build')
-            ),
-            dockerfile(
-                    fromCommand('openjdk:11.0-jre-slim'),
-                    workdirCommand('/app'),
-                    copyCommand('0', '/builder/build/libs/app.jar', '.'),
-                    exposeCommand(9090, 8080),
-                    entrypointCommand('java', '-Djava.security.egd=file:/dev/./urandom', '-jar', './app.jar')
-            )
-    )
 }
