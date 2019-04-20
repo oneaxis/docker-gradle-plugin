@@ -3,13 +3,15 @@ plugins {
     id 'maven-publish'
 }
 
-group 'de.oneaxis.docker'
+group 'de.oneaxis.gradle.docker'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 11
 
 repositories {
-    jcenter()
+    maven {
+        url uri("${nexusUrl}${relativePathPublic}")
+    }
 }
 
 dependencies {
@@ -21,9 +23,9 @@ publishing {
     repositories {
         maven {
             if(project.version.endsWith('-SNAPSHOT')) {
-                url "${nexusUrl}${relativePathSnapshots}"
+                url uri("${nexusUrl}${relativePathSnapshots}")
             } else {
-                url "${nexusUrl}${relativePathReleases}"
+                url uri("${nexusUrl}${relativePathReleases}")
             }
 
             credentials {
