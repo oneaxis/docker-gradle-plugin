@@ -62,3 +62,9 @@ createDockerfile {
     )
 }
 ```
+
+First we declare a `filePath` to assign a location where the Dockerfile will get
+written at. Then we assign 1..n Dockerfile compositions to the `dockerfile` 
+parameter. If we want to create a simple Dockerfile, we directly use the command
+`dockerfile()`. If we want multiple stages inside our Dockerfile, we use 
+`multistageDockerfile()` as a pseudo-wrapper first.
