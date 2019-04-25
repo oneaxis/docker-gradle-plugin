@@ -1,12 +1,10 @@
 plugins {
     id 'java-gradle-plugin'
     id 'maven-publish'
-    id 'com.gradle.plugin-publish' version '0.10.1'
 }
 
 group 'de.oneaxis.gradle.docker'
 version '1.0-SNAPSHOT'
-
 sourceCompatibility = 11
 
 repositories {
@@ -42,21 +40,6 @@ publishing {
         }
     }
 }
-
-//TODO: complete this later on
-//pluginBundle {
-//    website = '<substitute your project website>'
-//    vcsUrl = '<uri to project source repository>'
-//    tags = ['tags', 'for', 'your', 'plugins']
-
-//plugins {
-//    demoPlugin {
-//        id = 'com.praqma.demo.DemoPlugin'
-//        displayName = 'Gradle Multi Git plugin'
-//        description = 'Demo plugin to use as a starting point for custom plugin development'
-//    }
-//}
-//}
 
 gradlePlugin {
     plugins {

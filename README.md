@@ -7,6 +7,32 @@ builds. For now, these are the file options available that the plugin API offers
 
 For upcoming releases, its planned to integrate docker-compose file creation.
 
+## First steps
+To use this plugin add the following to your `build.gradle` file:
+
+```groovy
+plugins {
+    id 'de.oneaxis.gradle.docker.docker-gradle-plugin'
+}
+```
+
+If you are retrieving the plugin sources from a custom artifact repository 
+(like Nexus), add the following to your `settings.gradle` file: 
+
+``` groovy
+pluginManagement {
+    repositories {
+        maven {
+//            credentials {
+//                username my_username
+//                password my_password
+//            }
+            url 'http://nexus.oneaxis.de/repository/maven-public/'
+        }
+    }
+}
+```
+
 ## API
 ### Dockerfile
 To get an idea of how this plugin works, you first need to understand the concept 
