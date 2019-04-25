@@ -1,6 +1,7 @@
 plugins {
-    id 'java'
+    id 'java-gradle-plugin'
     id 'maven-publish'
+    id 'com.gradle.plugin-publish' version '0.10.1'
 }
 
 group 'de.oneaxis.gradle.docker'
@@ -10,7 +11,7 @@ sourceCompatibility = 11
 
 repositories {
     maven {
-        url uri("${nexusUrl}${relativePathPublic}")
+        url uri('http://nexus.oneaxis.de/repository/maven-public/')
     }
 }
 
@@ -20,9 +21,15 @@ dependencies {
 }
 
 publishing {
+    publications {
+        nexus(MavenPublication) {
+            from components.java
+        }
+    }
+
     repositories {
         maven {
-            if(project.version.endsWith('-SNAPSHOT')) {
+            if (project.version.endsWith('-SNAPSHOT')) {
                 url uri("${nexusUrl}${relativePathSnapshots}")
             } else {
                 url uri("${nexusUrl}${relativePathReleases}")
@@ -34,10 +41,28 @@ publishing {
             }
         }
     }
+}
 
-    publications {
-        api(MavenPublication) {
-            from components.java
+//TODO: complete this later on
+//pluginBundle {
+//    website = '<substitute your project website>'
+//    vcsUrl = '<uri to project source repository>'
+//    tags = ['tags', 'for', 'your', 'plugins']
+
+//plugins {
+//    demoPlugin {
+//        id = 'com.praqma.demo.DemoPlugin'
+//        displayName = 'Gradle Multi Git plugin'
+//        description = 'Demo plugin to use as a starting point for custom plugin development'
+//    }
+//}
+//}
+
+gradlePlugin {
+    plugins {
+        dockerGradlePlugin {
+            id = 'de.oneaxis.gradle.docker.docker-gradle-plugin'
+            implementationClass = 'de.oneaxis.gradle.docker.DockerPlugin'
         }
     }
 }
