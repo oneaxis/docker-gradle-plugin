@@ -1,15 +1,15 @@
-package de.oneaxis.gradle.docker.dockerfile.command;
+package de.oneaxis.gradle.docker.dockerfile.instruction;
 
-public class FromCommand extends AbstractCommand {
+public class FromInstruction extends AbstractInstruction {
 
     private final String baseImage, tag;
 
-    public FromCommand(final String baseImage) {
+    public FromInstruction(final String baseImage) {
         this.baseImage = baseImage;
         this.tag = null;
     }
 
-    public FromCommand(final String baseImage, final String tag) {
+    public FromInstruction(final String baseImage, final String tag) {
         this.baseImage = baseImage;
         this.tag = tag;
     }

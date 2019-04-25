@@ -12,7 +12,8 @@ To use this plugin add the following to your `build.gradle` file:
 
 ```groovy
 plugins {
-    id 'de.oneaxis.gradle.docker.docker-gradle-plugin'
+    // Add appropriate version from latest repository tag
+    id 'de.oneaxis.gradle.docker.docker-gradle-plugin' version 'your_desired_version'
 }
 ```
 
@@ -38,7 +39,7 @@ pluginManagement {
 To get an idea of how this plugin works, you first need to understand the concept 
 behind it. Its as simple as: 
 
-> A __Dockerfile__ contains __commands__. A __Dockerfile__ could
+> A __Dockerfile__ contains __instructions__. A __Dockerfile__ could
 contain __multiple stages__ (multistage Dockerfile).
 
 And that is the simple, abstract look at how Dockerfiles are composed.
@@ -51,20 +52,20 @@ And that is the simple, abstract look at how Dockerfiles are composed.
 - `filePath`: Dockerfile storage path (including filename).
 - `dockerfile`: Dockerfile content.
 
-##### Commands
-A list of supported Docker commands and its counterpart for integration in
-the `build.gradle`:
+##### Instructions
+A list of supported Docker instructions and its counterpart for integration in 
+`build.gradle`:
 
 | Dockerfile 	| Gradle            	|
 |------------	|-------------------	|
-| CMD        	| cmdCommand        	|
-| COPY       	| copyCommand       	|
-| ENTRYPOINT 	| entrypointCommand 	|
-| EXPOSE     	| exposeCommand     	|
-| FROM       	| fromCommand       	|
-| RUN        	| runCommand        	|
-| USER       	| userCommand       	|
-| WORKDIR    	| workdirCommand    	|
+| CMD        	| cmd        	        |
+| COPY       	| copy       	        |
+| ENTRYPOINT 	| entrypoint 	        |
+| EXPOSE     	| expose     	        |
+| FROM       	| from       	        |
+| RUN        	| run        	        |
+| USER       	| user       	        |
+| WORKDIR    	| workdir    	        |
 
 #### Example
 ```groovy
@@ -72,18 +73,18 @@ createDockerfile {
     filePath = file("$project.rootDir/Dockerfile")
     dockerfile = multistageDockerfile(
             dockerfile(
-                    fromCommand('gradle:5.3.0-jdk11-slim'),
-                    userCommand('root'),
-                    workdirCommand('/builder'),
-                    copyCommand('.', '.'),
-                    runCommand('gradle', 'build')
+                    from('gradle:5.3.0-jdk11-slim'),
+                    user('root'),
+                    workdir('/builder'),
+                    copy('.', '.'),
+                    run('gradle', 'build')
             ),
             dockerfile(
-                    fromCommand('openjdk:11.0-jre-slim'),
-                    workdirCommand('/app'),
-                    copyCommand('0', '/builder/build/libs/app.jar', '.'),
-                    exposeCommand(9090, 8080),
-                    entrypointCommand('java', '-Djava.security.egd=file:/dev/./urandom', '-jar', './app.jar')
+                    from('openjdk:11.0-jre-slim'),
+                    workdir('/app'),
+                    copy('0', '/builder/build/libs/app.jar', '.'),
+                    expose(9090, 8080),
+                    entrypoint('java', '-Djava.security.egd=file:/dev/./urandom', '-jar', './app.jar')
             )
     )
 }
@@ -94,5 +95,5 @@ written at. Then we assign 1..n Dockerfile compositions to the `dockerfile`
 parameter. If we want to create a simple Dockerfile, we directly use the method
 `dockerfile()`. If we want multiple stages inside our Dockerfile, we have to use 
 `multistageDockerfile()` as a pseudo-wrapper first. The `dockerfile()` method
-then takes any argument we want to be part of the Dockerfile. The command order
+then takes any argument we want to be part of the Dockerfile. The instruction order
 also defines the final position in the Dockerfile itself.

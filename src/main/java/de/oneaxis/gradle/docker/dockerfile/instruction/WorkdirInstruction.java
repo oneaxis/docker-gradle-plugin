@@ -1,9 +1,9 @@
-package de.oneaxis.gradle.docker.dockerfile.command;
+package de.oneaxis.gradle.docker.dockerfile.instruction;
 
-public class WorkdirCommand extends AbstractCommand {
+public class WorkdirInstruction extends AbstractInstruction {
     private final String workdir;
 
-    public WorkdirCommand(final String workdir) {
+    public WorkdirInstruction(final String workdir) {
         this.workdir = workdir;
     }
 

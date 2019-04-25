@@ -1,19 +1,19 @@
-package de.oneaxis.gradle.docker.dockerfile.command;
+package de.oneaxis.gradle.docker.dockerfile.instruction;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RunCommand extends AbstractExecutableCommand {
+public class RunInstruction extends AbstractExecutableInstruction {
 
-    public RunCommand(String... args) {
+    public RunInstruction(String... args) {
         super(args);
     }
 
-    public RunCommand(List<String> args) {
+    public RunInstruction(List<String> args) {
         super(args);
     }
 
-    public RunCommand(String arg) {
+    public RunInstruction(String arg) {
         super(arg);
     }
 

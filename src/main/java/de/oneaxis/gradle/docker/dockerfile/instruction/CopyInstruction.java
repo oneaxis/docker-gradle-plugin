@@ -1,15 +1,15 @@
-package de.oneaxis.gradle.docker.dockerfile.command;
+package de.oneaxis.gradle.docker.dockerfile.instruction;
 
-public class CopyCommand extends AbstractCommand{
+public class CopyInstruction extends AbstractInstruction {
     private final String from, origin, destination;
 
-    public CopyCommand(final String origin, final String destination) {
+    public CopyInstruction(final String origin, final String destination) {
         this.from = null;
         this.origin = origin;
         this.destination = destination;
     }
 
-    public CopyCommand(final String from, final String origin, final String destination) {
+    public CopyInstruction(final String from, final String origin, final String destination) {
         this.from = from;
         this.origin = origin;
         this.destination = destination;

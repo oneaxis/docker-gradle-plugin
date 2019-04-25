@@ -1,9 +1,9 @@
-package de.oneaxis.gradle.docker.dockerfile.command;
+package de.oneaxis.gradle.docker.dockerfile.instruction;
 
-public class UserCommand extends AbstractCommand {
+public class UserInstruction extends AbstractInstruction {
     private final String user;
 
-    public UserCommand(final String user) {
+    public UserInstruction(final String user) {
         this.user = user;
     }
 

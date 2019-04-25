@@ -1,15 +1,15 @@
-package de.oneaxis.gradle.docker.dockerfile.command;
+package de.oneaxis.gradle.docker.dockerfile.instruction;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CmdCommand extends AbstractExecutableCommand {
+public class CmdInstruction extends AbstractExecutableInstruction {
 
-    public CmdCommand(String... args) {
+    public CmdInstruction(String... args) {
         super(args);
     }
 
-    public CmdCommand(List<String> args) {
+    public CmdInstruction(List<String> args) {
         super(args);
     }
 

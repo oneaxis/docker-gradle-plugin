@@ -1,19 +1,19 @@
-package de.oneaxis.gradle.docker.dockerfile.command;
+package de.oneaxis.gradle.docker.dockerfile.instruction;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class EntrypointCommand extends AbstractExecutableCommand {
+public class EntrypointInstruction extends AbstractExecutableInstruction {
 
-    public EntrypointCommand(String... args) {
+    public EntrypointInstruction(String... args) {
         super(args);
     }
 
-    public EntrypointCommand(List<String> args) {
+    public EntrypointInstruction(List<String> args) {
         super(args);
     }
 
-    public EntrypointCommand(String arg) {
+    public EntrypointInstruction(String arg) {
         super(arg);
     }
 

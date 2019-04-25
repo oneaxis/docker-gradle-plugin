@@ -1,4 +1,4 @@
-package de.oneaxis.gradle.docker.dockerfile.command;
+package de.oneaxis.gradle.docker.dockerfile.instruction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,20 +6,20 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ExposeCommand extends AbstractCommand {
+public class ExposeInstruction extends AbstractInstruction {
 
     private List<Integer> ports;
 
-    public ExposeCommand(final List<Integer> ports) {
+    public ExposeInstruction(final List<Integer> ports) {
         this.ports = ports;
     }
 
-    public ExposeCommand(final int port) {
+    public ExposeInstruction(final int port) {
         this.ports = new ArrayList<>();
         this.ports.add(port);
     }
 
-    public ExposeCommand(final Integer... ports) {
+    public ExposeInstruction(final Integer... ports) {
         this.ports = Arrays.asList(ports);
     }
 

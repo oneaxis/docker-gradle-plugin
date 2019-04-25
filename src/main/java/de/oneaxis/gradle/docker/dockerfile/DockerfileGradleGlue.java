@@ -1,53 +1,53 @@
 package de.oneaxis.gradle.docker.dockerfile;
 
-import de.oneaxis.gradle.docker.dockerfile.command.*;
+import de.oneaxis.gradle.docker.dockerfile.instruction.*;
 
 public interface DockerfileGradleGlue {
-    default DefaultDockerfile dockerfile(final DockerfileCommand... commands) {
-        return new DefaultDockerfile(commands);
+    default DefaultDockerfile dockerfile(final DockerfileInstruction... instructions) {
+        return new DefaultDockerfile(instructions);
     }
 
     default MultistageDockerfile multistageDockerfile(final Dockerfile... dockerfiles) {
         return new MultistageDockerfile(dockerfiles);
     }
 
-    default CmdCommand cmdCommand(final String... args) {
-        return new CmdCommand(args);
+    default CmdInstruction cmd(final String... args) {
+        return new CmdInstruction(args);
     }
 
-    default CopyCommand copyCommand(final String origin, final String destination) {
-        return new CopyCommand(origin, destination);
+    default CopyInstruction copy(final String origin, final String destination) {
+        return new CopyInstruction(origin, destination);
     }
 
-    default CopyCommand copyCommand(final String from, final String origin, final String destination) {
-        return new CopyCommand(from, origin, destination);
+    default CopyInstruction copy(final String from, final String origin, final String destination) {
+        return new CopyInstruction(from, origin, destination);
     }
 
-    default EntrypointCommand entrypointCommand(final String... args) {
-        return new EntrypointCommand(args);
+    default EntrypointInstruction entrypoint(final String... args) {
+        return new EntrypointInstruction(args);
     }
 
-    default ExposeCommand exposeCommand(final Integer... ports) {
-        return new ExposeCommand(ports);
+    default ExposeInstruction expose(final Integer... ports) {
+        return new ExposeInstruction(ports);
     }
 
-    default FromCommand fromCommand(final String baseImage, final String tag) {
-        return new FromCommand(baseImage, tag);
+    default FromInstruction from(final String baseImage, final String tag) {
+        return new FromInstruction(baseImage, tag);
     }
 
-    default FromCommand fromCommand(final String baseImage) {
-        return new FromCommand(baseImage);
+    default FromInstruction from(final String baseImage) {
+        return new FromInstruction(baseImage);
     }
 
-    default RunCommand runCommand(final String... args) {
-        return new RunCommand(args);
+    default RunInstruction run(final String... args) {
+        return new RunInstruction(args);
     }
 
-    default UserCommand userCommand(final String user) {
-        return new UserCommand(user);
+    default UserInstruction user(final String user) {
+        return new UserInstruction(user);
     }
 
-    default WorkdirCommand workdirCommand(final String workdir) {
-        return new WorkdirCommand(workdir);
+    default WorkdirInstruction workdir(final String workdir) {
+        return new WorkdirInstruction(workdir);
     }
 }

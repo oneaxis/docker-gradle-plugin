@@ -1,6 +1,6 @@
 package de.oneaxis.gradle.docker.dockerfile;
 
-import de.oneaxis.gradle.docker.dockerfile.command.DockerfileCommand;
+import de.oneaxis.gradle.docker.dockerfile.instruction.DockerfileInstruction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,28 +8,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class DefaultDockerfile implements Dockerfile {
-    private final List<DockerfileCommand> commands;
+    private final List<DockerfileInstruction> instructions;
 
-    public DefaultDockerfile(final DockerfileCommand... commands) {
-        this.commands = Arrays.asList(commands);
+    DefaultDockerfile(final DockerfileInstruction... instructions) {
+        this.instructions = Arrays.asList(instructions);
     }
 
-    public DefaultDockerfile(final List<DockerfileCommand> commands) {
-        this.commands = commands;
+    DefaultDockerfile() {
+        this.instructions = new ArrayList<>();
     }
 
-    public DefaultDockerfile() {
-        this.commands = new ArrayList<>();
-    }
-
-    public void addCommand(final DockerfileCommand command) {
-        this.commands.add(command);
+    void addInstruction(final DockerfileInstruction instruction) {
+        this.instructions.add(instruction);
     }
 
     @Override
     public String parse() {
-        return commands.stream()
-                .map(DockerfileCommand::parse)
+        return instructions.stream()
+                .map(DockerfileInstruction::parse)
                 .collect(Collectors.joining("\n"));
     }
 }
