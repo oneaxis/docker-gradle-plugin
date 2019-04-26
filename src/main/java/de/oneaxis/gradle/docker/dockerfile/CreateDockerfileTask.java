@@ -1,6 +1,5 @@
 package de.oneaxis.gradle.docker.dockerfile;
 
-import de.oneaxis.gradle.docker.AbstractDockerTask;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;

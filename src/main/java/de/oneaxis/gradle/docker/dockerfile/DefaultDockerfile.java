@@ -14,12 +14,12 @@ public class DefaultDockerfile implements Dockerfile {
         this.instructions = Arrays.asList(instructions);
     }
 
-    DefaultDockerfile() {
-        this.instructions = new ArrayList<>();
+    public DefaultDockerfile(final List<DockerfileInstruction> instructions) {
+        this.instructions = instructions;
     }
 
-    void addInstruction(final DockerfileInstruction instruction) {
-        this.instructions.add(instruction);
+    public DefaultDockerfile() {
+        this.instructions = new ArrayList<>();
     }
 
     @Override
