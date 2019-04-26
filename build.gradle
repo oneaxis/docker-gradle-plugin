@@ -4,12 +4,18 @@ plugins {
 }
 
 group 'de.oneaxis.gradle.docker'
-version '1.0-SNAPSHOT'
+version System.getProperty('RELEASE_VERSION') ?
+        System.getProperty('RELEASE_VERSION') :
+        Calendar.getInstance(TimeZone.getTimeZone("GMT")).getTimeInMillis() + "-SNAPSHOT"
 sourceCompatibility = 11
 
 repositories {
     maven {
         url uri('http://nexus.oneaxis.de/repository/maven-public/')
+        credentials {
+            username System.getProperty('NEXUS_USERNAME')
+            password System.getProperty('NEXUS_PASSWORD')
+        }
     }
 }
 
@@ -28,14 +34,14 @@ publishing {
     repositories {
         maven {
             if (project.version.endsWith('-SNAPSHOT')) {
-                url uri("${nexusUrl}${relativePathSnapshots}")
+                url uri(System.getProperty('NEXUS_URL_SNAPSHOTS'))
             } else {
-                url uri("${nexusUrl}${relativePathReleases}")
+                url uri(System.getProperty('NEXUS_URL_RELEASES'))
             }
 
             credentials {
-                username "$nexusUsername"
-                password "$nexusPassword"
+                username System.getProperty('NEXUS_USERNAME')
+                password System.getProperty('NEXUS_PASSWORD')
             }
         }
     }

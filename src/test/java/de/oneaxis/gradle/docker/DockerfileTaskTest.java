@@ -1,4 +1,4 @@
-package gradle.docker.dockerfile;
+package de.oneaxis.gradle.docker;
 
 import de.oneaxis.gradle.docker.dockerfile.CreateDockerfileTask;
 import de.oneaxis.gradle.docker.dockerfile.DefaultDockerfile;
@@ -18,7 +18,7 @@ public class DockerfileTaskTest {
 
     //Preconditions
     private final static File filePath = new File("./" + UUID.randomUUID().toString());
-    private final static List<DockerfileInstruction> commands = List.of(
+    private final static List<DockerfileInstruction> instructions = List.of(
             new FromInstruction("gradle:5.3.0-jdk11-slim"),
             new UserInstruction("root"),
             new WorkdirInstruction("/builder"),
@@ -32,9 +32,9 @@ public class DockerfileTaskTest {
     }
 
     @Test
-    public void testGiven_ConfigurationAttributes_Then_WriteDefaultDockerfile() throws IOException {
+    public void Given_ConfigurationAttributes_Then_WriteDefaultDockerfile() throws IOException {
         final CreateDockerfileTask createDockerfileTask = new CreateDockerfileTask();
-        createDockerfileTask.setDockerfile(new DefaultDockerfile(commands));
+        createDockerfileTask.setDockerfile(new DefaultDockerfile());
         createDockerfileTask.setFilePath(filePath);
         createDockerfileTask.createDockerfile();
     }
@@ -43,8 +43,8 @@ public class DockerfileTaskTest {
     public void Given_ConfigurationAttributes_Then_WriteMultistageDockerfile() throws IOException {
         final CreateDockerfileTask createDockerfileTask = new CreateDockerfileTask();
         createDockerfileTask.setDockerfile(new MultistageDockerfile(
-                new DefaultDockerfile(commands),
-                new DefaultDockerfile(commands)
+                new DefaultDockerfile(instructions),
+                new DefaultDockerfile(instructions)
         ));
         createDockerfileTask.setFilePath(filePath);
         createDockerfileTask.createDockerfile();
