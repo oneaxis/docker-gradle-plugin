@@ -97,9 +97,3 @@ parameter. If we want to create a simple Dockerfile, we directly use the method
 `multistageDockerfile()` as a pseudo-wrapper first. The `dockerfile()` method
 then takes any argument we want to be part of the Dockerfile. The instruction order
 also defines the final position in the Dockerfile itself.
-
-## Build
-To build this project by yourself, you need to provide the following environment
-variables:
-
-- 
