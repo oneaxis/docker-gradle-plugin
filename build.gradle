@@ -4,7 +4,9 @@ plugins {
 }
 
 group 'de.oneaxis.gradle.docker'
-version Calendar.getInstance(TimeZone.getTimeZone("GMT")).getTimeInMillis() + "-SNAPSHOT"
+version System.getProperty('RELEASE_VERSION') ?
+        System.getProperty('RELEASE_VERSION') :
+        Calendar.getInstance(TimeZone.getTimeZone("GMT")).getTimeInMillis() + "-SNAPSHOT"
 sourceCompatibility = 11
 
 repositories {
